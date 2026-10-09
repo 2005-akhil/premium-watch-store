@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wishlist | Titan Watch Store</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+<!-- ANNOUNCEMENT BAR -->
+<div class="announcement-bar">
+  <div class="scroll-text">
+    <span>✦ Free shipping on orders above <strong>₹2,000</strong> &nbsp;·&nbsp; Use code <strong>TITAN10</strong> for 10% off &nbsp;·&nbsp;</span>
+    <span>✦ Free shipping on orders above <strong>₹2,000</strong> &nbsp;·&nbsp; Use code <strong>TITAN10</strong> for 10% off &nbsp;·&nbsp;</span>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header class="site-header">
+  <nav class="navbar container">
+    <a href="index.html" class="nav-logo">
+      <span class="logo-text">TITAN</span>
+      <span class="logo-tagline">Crafting Brilliance</span>
+    </a>
+    <ul class="nav-menu">
+      <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+      <li class="nav-item"><a href="collections.html" class="nav-link">Collections</a></li>
+      <li class="nav-item"><a href="collections.html?filter=new" class="nav-link">New Arrivals</a></li>
+      <li class="nav-item"><a href="collections.html?filter=sale" class="nav-link">Sale</a></li>
+    </ul>
+    <div class="nav-icons">
+      <button class="nav-icon-btn search-toggle"><i class="fas fa-search"></i></button>
+      <a href="wishlist.html" class="nav-icon-btn" style="position:relative">
+        <i class="far fa-heart"></i>
+        <span class="badge wish-badge" style="display:none">0</span>
+      </a>
+      <a href="cart.html" class="nav-icon-btn" style="position:relative">
+        <i class="fas fa-shopping-bag"></i>
+        <span class="badge cart-badge" style="display:none">0</span>
+      </a>
+      <button class="hamburger"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+</header>
+
+<div class="search-bar-overlay">
+  <form onsubmit="return false;" style="max-width:700px;margin:0 auto;display:flex;align-items:center;gap:16px">
+    <i class="fas fa-search" style="color:var(--gray);font-size:1.1rem"></i>
+    <input type="text" placeholder="Search for watches...">
+    <i class="fas fa-times search-close"></i>
+  </form>
+</div>
+
+<div class="mobile-overlay"></div>
+<nav class="mobile-nav">
+  <div class="mobile-nav-header">
+    <span class="logo">TITAN</span>
+    <i class="fas fa-times mobile-nav-close"></i>
+  </div>
+  <div class="mobile-nav-links">
+    <a href="index.html">Home <i class="fas fa-chevron-right"></i></a>
+    <a href="collections.html">Collections <i class="fas fa-chevron-right"></i></a>
+    <a href="wishlist.html">Wishlist <i class="fas fa-heart"></i></a>
+    <a href="cart.html">Cart <i class="fas fa-shopping-bag"></i></a>
+  </div>
+  <div class="mobile-nav-footer">
+    <p>Follow us</p>
+    <div class="mobile-social">
+      <a href="#"><i class="fab fa-instagram"></i></a>
+      <a href="#"><i class="fab fa-facebook-f"></i></a>
+    </div>
+  </div>
+</nav>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="index.html">Home</a>
+      <i class="fas fa-chevron-right"></i>
+      <span>Wishlist</span>
+    </div>
+    <h1>My Wishlist</h1>
+    <p>Your saved timepieces — ready whenever you are.</p>
+  </div>
+</div>
+
+<!-- WISHLIST GRID -->
+<section class="section-padding">
+  <div class="container">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:32px;flex-wrap:wrap;gap:12px">
+      <h2 style="font-size:1.3rem;color:var(--primary)">
+        <i class="fas fa-heart" style="color:var(--gold);margin-right:10px"></i>
+        Saved Items (<span id="wishCount">0</span>)
+      </h2>
+      <div style="display:flex;gap:12px;flex-wrap:wrap">
+        <button class="btn-gold" onclick="addAllToCart()" style="font-size:0.78rem;padding:10px 20px">
+          <i class="fas fa-shopping-bag"></i> Add All to Cart
+        </button>
+        <a href="collections.html" class="btn-outline" style="font-size:0.78rem;padding:10px 20px">
+          <i class="fas fa-search"></i> Discover More
+        </a>
+      </div>
+    </div>
+    <div class="wishlist-grid" id="wishlistGrid">
+      <!-- Rendered by JS -->
+    </div>
+  </div>
+</section>
+
+<!-- You May Also Like -->
+<section class="section-padding" style="background:var(--off-white)">
+  <div class="container">
+    <div class="section-header">
+      <span class="pre-title">Discover More</span>
+      <h2>You Might Love These</h2>
+      <div class="gold-divider"></div>
+    </div>
+    <div class="products-grid" id="suggestionsGrid"></div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <span class="logo">TITAN</span>
+        <span class="tagline">Crafting Brilliance</span>
+        <p>India's most trusted watch brand since 1984.</p>
+        <div class="social-links">
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-youtube"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Collections</h4>
+        <ul>
+          <li><a href="collections.html"><i class="fas fa-chevron-right"></i> All Watches</a></li>
+          <li><a href="collections.html?gender=Men"><i class="fas fa-chevron-right"></i> For Him</a></li>
+          <li><a href="collections.html?gender=Women"><i class="fas fa-chevron-right"></i> For Her</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Help</h4>
+        <ul>
+          <li><a href="#"><i class="fas fa-chevron-right"></i> Track Order</a></li>
+          <li><a href="#"><i class="fas fa-chevron-right"></i> Returns</a></li>
+          <li><a href="#"><i class="fas fa-chevron-right"></i> Contact Us</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="#"><i class="fas fa-phone"></i> 1800-258-5530</a></li>
+          <li><a href="#"><i class="fas fa-envelope"></i> support@titan.com</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2024 Titan Company Limited. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<button class="scroll-top" id="scrollTop"><i class="fas fa-chevron-up"></i></button>
+<div class="toast-container" id="toastContainer"></div>
+
+<script src="js/products.js"></script>
+<script src="js/main.js"></script>
+<script>
+  function addAllToCart() {
+    if (!wishlist.length) {
+      showToast('<i class="fas fa-info-circle"></i> <span>Your wishlist is empty</span>', '');
+      return;
+    }
+    wishlist.forEach(p => addToCartSilent(p.id));
+    showToast(`<i class="fas fa-check-circle"></i> <span>All <strong>${wishlist.length}</strong> items added to cart!</span>`, 'success');
+  }
+  function addToCartSilent(productId) {
+    const product = PRODUCTS.find(p => p.id === productId);
+    if (!product) return;
+    const existing = cart.find(i => i.id === productId);
+    if (existing) existing.qty += 1;
+    else cart.push({ ...product, qty: 1 });
+    saveCart();
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const wishCount = document.getElementById('wishCount');
+    if (wishCount) wishCount.textContent = wishlist.length;
+
+    const sugGrid = document.getElementById('suggestionsGrid');
+    if (sugGrid) {
+      const ids = wishlist.map(w => w.id);
+      const suggestions = PRODUCTS.filter(p => !ids.includes(p.id)).sort(() => Math.random() - 0.5).slice(0, 4);
+      sugGrid.innerHTML = suggestions.map(p => createProductCard(p)).join('');
+      setTimeout(initScrollAnimations, 100);
+    }
+  });
+</script>
+</body>
+</html>

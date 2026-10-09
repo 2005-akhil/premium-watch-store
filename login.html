@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Account | Titan Watch Store</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    /* Auth Page Styles */
+    .auth-section {
+      min-height: calc(100vh - var(--header-height) - var(--announcement-height) - 100px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 20px;
+      background: linear-gradient(135deg, #0A0A2E 0%, #1A1A4E 60%, #121235 100%);
+      position: relative;
+    }
+
+    .auth-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at center, rgba(201,168,76,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .auth-card {
+      width: 100%;
+      max-width: 980px;
+      background: var(--white);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35);
+      display: grid;
+      grid-template-columns: 1fr 1.15fr;
+      position: relative;
+      z-index: 1;
+    }
+
+    .auth-visual {
+      position: relative;
+      background: #0d0d2b;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 48px;
+      color: var(--white);
+      overflow: hidden;
+    }
+
+    .auth-visual-bg {
+      position: absolute;
+      inset: 0;
+      background: url('https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800&q=80') center/cover;
+      opacity: 0.35;
+      filter: saturate(0.8) contrast(1.1);
+      transition: transform 1.2s ease;
+    }
+
+    .auth-card:hover .auth-visual-bg {
+      transform: scale(1.05);
+    }
+
+    .auth-visual-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .auth-brand {
+      display: inline-flex;
+      flex-direction: column;
+      margin-bottom: 24px;
+    }
+
+    .auth-brand .logo-text {
+      font-family: var(--font-serif);
+      font-size: 2rem;
+      letter-spacing: 5px;
+      color: var(--gold);
+      font-weight: 700;
+    }
+
+    .auth-brand .logo-tagline {
+      font-size: 0.65rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.7);
+    }
+
+    .auth-quote {
+      font-family: var(--font-serif);
+      font-size: 1.4rem;
+      line-height: 1.4;
+      font-style: italic;
+      color: var(--white);
+      margin: 40px 0 16px;
+    }
+
+    .auth-quote-author {
+      font-size: 0.8rem;
+      color: var(--gold);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .auth-perks {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-top: 30px;
+    }
+
+    .auth-perk-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.85);
+    }
+
+    .auth-perk-item i {
+      color: var(--gold);
+      font-size: 0.9rem;
+      width: 20px;
+    }
+
+    /* Auth Forms Panel */
+    .auth-forms-panel {
+      padding: 48px;
+      background: var(--white);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .auth-tabs {
+      display: flex;
+      border-bottom: 2px solid var(--light-gray);
+      margin-bottom: 32px;
+    }
+
+    .auth-tab-btn {
+      flex: 1;
+      text-align: center;
+      padding: 14px 20px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--gray);
+      border-bottom: 3px solid transparent;
+      margin-bottom: -2px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .auth-tab-btn:hover {
+      color: var(--primary);
+    }
+
+    .auth-tab-btn.active {
+      color: var(--gold);
+      border-bottom-color: var(--gold);
+    }
+
+    .auth-form-title {
+      font-family: var(--font-serif);
+      font-size: 1.6rem;
+      color: var(--primary);
+      margin-bottom: 8px;
+    }
+
+    .auth-form-subtitle {
+      font-size: 0.88rem;
+      color: var(--gray);
+      margin-bottom: 24px;
+    }
+
+    .auth-input-group {
+      margin-bottom: 18px;
+      position: relative;
+    }
+
+    .auth-input-group label {
+      display: block;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      color: var(--dark);
+      margin-bottom: 8px;
+    }
+
+    .input-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .input-wrapper i.field-icon {
+      position: absolute;
+      left: 14px;
+      color: #999;
+      font-size: 0.95rem;
+      pointer-events: none;
+      transition: color 0.2s ease;
+    }
+
+    .input-wrapper input {
+      width: 100%;
+      padding: 13px 40px 13px 40px;
+      border: 1.5px solid var(--light-gray);
+      border-radius: var(--radius);
+      font-size: 0.92rem;
+      outline: none;
+      transition: all 0.25s ease;
+      background: #fafafa;
+    }
+
+    .input-wrapper input:focus {
+      background: var(--white);
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(201,168,76,0.15);
+    }
+
+    .input-wrapper input:focus + i.field-icon {
+      color: var(--gold);
+    }
+
+    .toggle-password {
+      position: absolute;
+      right: 14px;
+      cursor: pointer;
+      color: var(--gray);
+      font-size: 0.9rem;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+
+    .toggle-password:hover {
+      color: var(--dark);
+    }
+
+    .form-options {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+      font-size: 0.82rem;
+    }
+
+    .checkbox-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--gray);
+      cursor: pointer;
+    }
+
+    .checkbox-label input {
+      accent-color: var(--gold);
+      cursor: pointer;
+    }
+
+    .forgot-link {
+      color: var(--gold);
+      font-weight: 600;
+      transition: color 0.2s ease;
+    }
+
+    .forgot-link:hover {
+      text-decoration: underline;
+      color: var(--gold-dark);
+    }
+
+    /* Message Alert */
+    .auth-alert {
+      padding: 12px 16px;
+      border-radius: var(--radius);
+      font-size: 0.85rem;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      animation: alertSlide 0.3s ease;
+    }
+
+    @keyframes alertSlide {
+      from { opacity: 0; transform: translateY(-8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .auth-alert.error {
+      background: #FFF5F5;
+      color: #C53030;
+      border: 1px solid #FEB2B2;
+    }
+
+    .auth-alert.success {
+      background: #F0FFF4;
+      color: #276749;
+      border: 1px solid #9AE6B4;
+    }
+
+    .auth-alert.info {
+      background: #EBF8FF;
+      color: #2B6CB0;
+      border: 1px solid #BEE3F8;
+    }
+
+    /* Atlas Status Pill */
+    .atlas-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      margin-bottom: 18px;
+      background: #f1f8f5;
+      color: #116149;
+      border: 1px solid #a3e3c6;
+    }
+
+    .atlas-badge.disconnected {
+      background: #fff8e6;
+      color: #8c6800;
+      border-color: #ffd875;
+    }
+
+    .atlas-badge-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #10a37f;
+    }
+
+    .atlas-badge.disconnected .atlas-badge-dot {
+      background: #f59e0b;
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    /* User Profile State when logged in */
+    .logged-in-box {
+      text-align: center;
+      padding: 30px 10px;
+    }
+
+    .user-avatar-circle {
+      width: 72px;
+      height: 72px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      color: var(--white);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      font-family: var(--font-serif);
+      margin: 0 auto 16px;
+      box-shadow: 0 8px 20px rgba(201,168,76,0.3);
+    }
+
+    @media (max-width: 860px) {
+      .auth-card {
+        grid-template-columns: 1fr;
+      }
+      .auth-visual {
+        display: none;
+      }
+      .auth-forms-panel {
+        padding: 36px 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ANNOUNCEMENT BAR -->
+<div class="announcement-bar">
+  <div class="scroll-text">
+    <span>✦ Free shipping on orders above <strong>₹2,000</strong> &nbsp;·&nbsp; Use code <strong>TITAN10</strong> for 10% off &nbsp;·&nbsp; <strong>New</strong> Titan Edge Collection is here &nbsp;·&nbsp;</span>
+    <span>✦ Free shipping on orders above <strong>₹2,000</strong> &nbsp;·&nbsp; Use code <strong>TITAN10</strong> for 10% off &nbsp;·&nbsp; <strong>New</strong> Titan Edge Collection is here &nbsp;·&nbsp;</span>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header class="site-header">
+  <nav class="navbar container">
+    <a href="index.html" class="nav-logo">
+      <span class="logo-text">TITAN</span>
+      <span class="logo-tagline">Crafting Brilliance</span>
+    </a>
+    <ul class="nav-menu">
+      <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+      <li class="nav-item"><a href="collections.html" class="nav-link">Collections</a></li>
+      <li class="nav-item"><a href="collections.html?filter=new" class="nav-link">New Arrivals</a></li>
+      <li class="nav-item"><a href="collections.html?filter=sale" class="nav-link">Sale</a></li>
+    </ul>
+    <div class="nav-icons">
+      <button class="nav-icon-btn search-toggle"><i class="fas fa-search"></i></button>
+      <a href="wishlist.html" class="nav-icon-btn" style="position:relative">
+        <i class="far fa-heart"></i>
+        <span class="badge wish-badge" style="display:none">0</span>
+      </a>
+      <a href="cart.html" class="nav-icon-btn" style="position:relative">
+        <i class="fas fa-shopping-bag"></i>
+        <span class="badge cart-badge" style="display:none">0</span>
+      </a>
+      <a href="login.html" class="nav-icon-btn" title="Account" style="color:var(--gold)"><i class="fas fa-user"></i></a>
+      <button class="hamburger"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+</header>
+
+<div class="mobile-overlay"></div>
+<nav class="mobile-nav">
+  <div class="mobile-nav-header">
+    <span class="logo">TITAN</span>
+    <i class="fas fa-times mobile-nav-close"></i>
+  </div>
+  <div class="mobile-nav-links">
+    <a href="index.html">Home <i class="fas fa-chevron-right"></i></a>
+    <a href="collections.html">Collections <i class="fas fa-chevron-right"></i></a>
+    <a href="wishlist.html">Wishlist <i class="fas fa-heart"></i></a>
+    <a href="cart.html">Cart <i class="fas fa-shopping-bag"></i></a>
+    <a href="login.html">Login / Register <i class="fas fa-user"></i></a>
+  </div>
+</nav>
+
+<!-- AUTHENTICATION SECTION -->
+<section class="auth-section">
+  <div class="auth-card">
+
+    <!-- Left Visual Panel -->
+    <div class="auth-visual">
+      <div class="auth-visual-bg"></div>
+      <div class="auth-visual-content">
+        <div class="auth-brand">
+          <span class="logo-text">TITAN</span>
+          <span class="logo-tagline">Privilege Club</span>
+        </div>
+        <div class="auth-quote">
+          "Time isn't just measured in seconds, but in moments made extraordinary."
+        </div>
+        <div class="auth-quote-author">— The Titan Legacy</div>
+      </div>
+
+      <div class="auth-perks">
+        <div class="auth-perk-item">
+          <i class="fas fa-shield-alt"></i>
+          <span>Secure data storage on MongoDB Atlas</span>
+        </div>
+        <div class="auth-perk-item">
+          <i class="fas fa-gem"></i>
+          <span>Exclusive member-only releases and discounts</span>
+        </div>
+        <div class="auth-perk-item">
+          <i class="fas fa-history"></i>
+          <span>Instant access to order history & wishlist</span>
+        </div>
+        <div class="auth-perk-item">
+          <i class="fas fa-clock"></i>
+          <span>Complimentary timepiece maintenance coverage</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Form Panel -->
+    <div class="auth-forms-panel">
+
+      <!-- Database Status Badge -->
+      <div id="dbStatusPill" class="atlas-badge disconnected" title="MongoDB Atlas Status">
+        <span class="atlas-badge-dot"></span>
+        <span id="dbStatusText">Checking MongoDB Atlas...</span>
+      </div>
+
+      <!-- Logged In State Box (Hidden by default) -->
+      <div id="loggedInState" style="display:none" class="logged-in-box">
+        <div class="user-avatar-circle" id="userInitial">T</div>
+        <h3 id="loggedInName" style="color:var(--primary);margin-bottom:6px">Welcome Back!</h3>
+        <p id="loggedInEmail" style="color:var(--gray);font-size:0.9rem;margin-bottom:24px">user@example.com</p>
+        <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+          <a href="collections.html" class="btn-gold" style="font-size:0.8rem;padding:12px 24px">
+            <i class="fas fa-shopping-bag"></i> Start Shopping
+          </a>
+          <button id="logoutBtn" class="btn-outline" style="font-size:0.8rem;padding:12px 24px">
+            <i class="fas fa-sign-out-alt"></i> Sign Out
+          </button>
+        </div>
+      </div>
+
+      <!-- Form Container -->
+      <div id="authFormsContainer">
+        <!-- Auth Tabs -->
+        <div class="auth-tabs">
+          <button type="button" class="auth-tab-btn active" id="tabLogin" onclick="switchAuthTab('login')">
+            Sign In
+          </button>
+          <button type="button" class="auth-tab-btn" id="tabRegister" onclick="switchAuthTab('register')">
+            Create Account
+          </button>
+        </div>
+
+        <!-- Alert Notification Box -->
+        <div id="authAlert" class="auth-alert" style="display:none">
+          <i id="authAlertIcon" class="fas fa-exclamation-circle"></i>
+          <span id="authAlertText"></span>
+        </div>
+
+        <!-- LOGIN FORM -->
+        <form id="loginForm" onsubmit="handleLogin(event)">
+          <h2 class="auth-form-title">Welcome Back</h2>
+          <p class="auth-form-subtitle">Enter your credentials to access your Titan account</p>
+
+          <div class="auth-input-group">
+            <label for="loginEmail">Email Address</label>
+            <div class="input-wrapper">
+              <i class="far fa-envelope field-icon"></i>
+              <input type="email" id="loginEmail" placeholder="e.g. rohan.sharma@example.com" required autocomplete="email">
+            </div>
+          </div>
+
+          <div class="auth-input-group">
+            <label for="loginPassword">Password</label>
+            <div class="input-wrapper">
+              <i class="fas fa-lock field-icon"></i>
+              <input type="password" id="loginPassword" placeholder="Enter your password" required autocomplete="current-password">
+              <button type="button" class="toggle-password" onclick="togglePasswordVisibility('loginPassword', this)">
+                <i class="far fa-eye"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="form-options">
+            <label class="checkbox-label">
+              <input type="checkbox" id="rememberMe" checked>
+              <span>Remember me</span>
+            </label>
+            <a href="javascript:void(0)" onclick="showAlert('Please contact support@titanwatch.in to reset your password.', 'info')" class="forgot-link">Forgot Password?</a>
+          </div>
+
+          <button type="submit" id="loginSubmitBtn" class="btn-gold" style="width:100%;justify-content:center;padding:15px">
+            <span>Sign In to Titan</span>
+          </button>
+        </form>
+
+        <!-- REGISTER FORM -->
+        <form id="registerForm" style="display:none" onsubmit="handleRegister(event)">
+          <h2 class="auth-form-title">Create Account</h2>
+          <p class="auth-form-subtitle">Join Titan Privilege for tailored experiences</p>
+
+          <div class="auth-input-group">
+            <label for="regName">Full Name</label>
+            <div class="input-wrapper">
+              <i class="far fa-user field-icon"></i>
+              <input type="text" id="regName" placeholder="e.g. Priya Sharma" required autocomplete="name">
+            </div>
+          </div>
+
+          <div class="auth-input-group">
+            <label for="regEmail">Email Address</label>
+            <div class="input-wrapper">
+              <i class="far fa-envelope field-icon"></i>
+              <input type="email" id="regEmail" placeholder="e.g. priya.sharma@example.com" required autocomplete="email">
+            </div>
+          </div>
+
+          <div class="auth-input-group">
+            <label for="regPhone">Phone Number (Optional)</label>
+            <div class="input-wrapper">
+              <i class="fas fa-phone field-icon"></i>
+              <input type="tel" id="regPhone" placeholder="e.g. +91 98765 43210" autocomplete="tel">
+            </div>
+          </div>
+
+          <div class="auth-input-group">
+            <label for="regPassword">Password (Min. 6 chars)</label>
+            <div class="input-wrapper">
+              <i class="fas fa-lock field-icon"></i>
+              <input type="password" id="regPassword" placeholder="Create a strong password" required minlength="6" autocomplete="new-password">
+              <button type="button" class="toggle-password" onclick="togglePasswordVisibility('regPassword', this)">
+                <i class="far fa-eye"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="auth-input-group">
+            <label for="regConfirmPassword">Confirm Password</label>
+            <div class="input-wrapper">
+              <i class="fas fa-shield-alt field-icon"></i>
+              <input type="password" id="regConfirmPassword" placeholder="Repeat your password" required minlength="6" autocomplete="new-password">
+              <button type="button" class="toggle-password" onclick="togglePasswordVisibility('regConfirmPassword', this)">
+                <i class="far fa-eye"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="form-options">
+            <label class="checkbox-label">
+              <input type="checkbox" id="regTerms" required>
+              <span>I accept the <a href="#" style="color:var(--gold)">Terms of Service</a> & <a href="#" style="color:var(--gold)">Privacy Policy</a></span>
+            </label>
+          </div>
+
+          <button type="submit" id="regSubmitBtn" class="btn-gold" style="width:100%;justify-content:center;padding:15px">
+            <span>Create My Titan Account</span>
+          </button>
+        </form>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <span class="logo">TITAN</span>
+        <span class="tagline">Crafting Brilliance</span>
+        <p>Part of the Tata Group, Titan has been India's most trusted watch brand since 1984.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Help</h4>
+        <ul>
+          <li><a href="#"><i class="fas fa-chevron-right"></i> Track Order</a></li>
+          <li><a href="#"><i class="fas fa-chevron-right"></i> Returns</a></li>
+          <li><a href="#"><i class="fas fa-chevron-right"></i> FAQ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Security</h4>
+        <ul>
+          <li><a href="#"><i class="fas fa-shield-alt"></i> MongoDB Atlas Encrypted</a></li>
+          <li><a href="#"><i class="fas fa-lock"></i> 256-bit SSL Protected</a></li>
+          <li><a href="#"><i class="fas fa-user-shield"></i> GDPR & DPDP Compliant</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="tel:18002585530"><i class="fas fa-phone"></i> 1800-258-5530</a></li>
+          <li><a href="mailto:support@titanwatch.in"><i class="fas fa-envelope"></i> support@titanwatch.in</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2024 Titan Company Limited. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<div class="toast-container" id="toastContainer"></div>
+
+<script src="js/products.js"></script>
+<script src="js/main.js"></script>
+<script>
+  // Auth Tab Switch
+  function switchAuthTab(tab) {
+    const loginForm = document.getElementById('loginForm');
+    const registerForm = document.getElementById('registerForm');
+    const tabLogin = document.getElementById('tabLogin');
+    const tabRegister = document.getElementById('tabRegister');
+    const alertBox = document.getElementById('authAlert');
+
+    alertBox.style.display = 'none';
+
+    if (tab === 'login') {
+      loginForm.style.display = 'block';
+      registerForm.style.display = 'none';
+      tabLogin.classList.add('active');
+      tabRegister.classList.remove('active');
+    } else {
+      loginForm.style.display = 'none';
+      registerForm.style.display = 'block';
+      tabRegister.classList.add('active');
+      tabLogin.classList.remove('active');
+    }
+  }
+
+  // Toggle Password Field
+  function togglePasswordVisibility(fieldId, btn) {
+    const input = document.getElementById(fieldId);
+    const icon = btn.querySelector('i');
+    if (input.type === 'password') {
+      input.type = 'text';
+      icon.className = 'far fa-eye-slash';
+    } else {
+      input.type = 'password';
+      icon.className = 'far fa-eye';
+    }
+  }
+
+  // Show Alert
+  function showAlert(msg, type = 'error') {
+    const alertBox = document.getElementById('authAlert');
+    const alertText = document.getElementById('authAlertText');
+    const alertIcon = document.getElementById('authAlertIcon');
+
+    alertBox.className = `auth-alert ${type}`;
+    alertText.textContent = msg;
+
+    if (type === 'error') alertIcon.className = 'fas fa-exclamation-circle';
+    else if (type === 'success') alertIcon.className = 'fas fa-check-circle';
+    else alertIcon.className = 'fas fa-info-circle';
+
+    alertBox.style.display = 'flex';
+  }
+
+  // Check MongoDB Atlas Status from API
+  async function checkAtlasStatus() {
+    const pill = document.getElementById('dbStatusPill');
+    const text = document.getElementById('dbStatusText');
+
+    try {
+      const response = await fetch('/api/auth/status');
+      if (response.ok) {
+        const data = await response.json();
+        if (data.databaseConnected) {
+          pill.className = 'atlas-badge';
+          text.textContent = 'MongoDB Atlas: Connected';
+        } else {
+          pill.className = 'atlas-badge disconnected';
+          text.textContent = 'MongoDB Atlas: Setup URI in .env';
+        }
+      } else {
+        pill.className = 'atlas-badge disconnected';
+        text.textContent = 'Local Mode: Start server.js';
+      }
+    } catch (e) {
+      pill.className = 'atlas-badge disconnected';
+      text.textContent = 'Server Offline: Run node server.js';
+    }
+  }
+
+  // Check if already logged in
+  function checkLoginState() {
+    const userStr = localStorage.getItem('titan_user');
+    const formsContainer = document.getElementById('authFormsContainer');
+    const loggedInState = document.getElementById('loggedInState');
+
+    if (userStr) {
+      try {
+        const user = JSON.parse(userStr);
+        formsContainer.style.display = 'none';
+        loggedInState.style.display = 'block';
+        document.getElementById('loggedInName').textContent = `Welcome, ${user.name}`;
+        document.getElementById('loggedInEmail').textContent = user.email;
+        document.getElementById('userInitial').textContent = user.name ? user.name[0].toUpperCase() : 'T';
+      } catch (err) {
+        localStorage.removeItem('titan_user');
+      }
+    } else {
+      formsContainer.style.display = 'block';
+      loggedInState.style.display = 'none';
+    }
+  }
+
+  // Handle Logout
+  document.getElementById('logoutBtn')?.addEventListener('click', () => {
+    localStorage.removeItem('titan_user');
+    showToast('<i class="fas fa-info-circle"></i> <span>You have been signed out.</span>', '');
+    checkLoginState();
+  });
+
+  // Handle Sign In Submission
+  async function handleLogin(e) {
+    e.preventDefault();
+    const btn = document.getElementById('loginSubmitBtn');
+    const email = document.getElementById('loginEmail').value.trim();
+    const password = document.getElementById('loginPassword').value;
+
+    btn.disabled = true;
+    const origText = btn.innerHTML;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> <span>Verifying...</span>';
+
+    try {
+      const res = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+      });
+
+      const data = await res.json();
+
+      if (res.ok && data.success) {
+        showAlert(data.message, 'success');
+        localStorage.setItem('titan_user', JSON.stringify(data.user));
+        showToast(`<i class="fas fa-check-circle"></i> <span>Welcome back, ${data.user.name}!</span>`, 'success');
+        setTimeout(() => {
+          window.location.href = 'index.html';
+        }, 1200);
+      } else {
+        showAlert(data.message || 'Login failed. Please check your credentials.', 'error');
+      }
+    } catch (error) {
+      showAlert('Unable to reach server. Please run "node server.js" in terminal.', 'error');
+    } finally {
+      btn.disabled = false;
+      btn.innerHTML = origText;
+    }
+  }
+
+  // Handle Register Submission
+  async function handleRegister(e) {
+    e.preventDefault();
+    const btn = document.getElementById('regSubmitBtn');
+    const name = document.getElementById('regName').value.trim();
+    const email = document.getElementById('regEmail').value.trim();
+    const phone = document.getElementById('regPhone').value.trim();
+    const password = document.getElementById('regPassword').value;
+    const confirmPassword = document.getElementById('regConfirmPassword').value;
+
+    if (password !== confirmPassword) {
+      showAlert('Passwords do not match! Please check and try again.', 'error');
+      return;
+    }
+
+    btn.disabled = true;
+    const origText = btn.innerHTML;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> <span>Creating Account...</span>';
+
+    try {
+      const res = await fetch('/api/auth/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, phone, password })
+      });
+
+      const data = await res.json();
+
+      if (res.ok && data.success) {
+        showAlert(data.message, 'success');
+        localStorage.setItem('titan_user', JSON.stringify(data.user));
+        showToast(`<i class="fas fa-check-circle"></i> <span>Account created! Welcome, ${data.user.name}.</span>`, 'success');
+        setTimeout(() => {
+          window.location.href = 'index.html';
+        }, 1200);
+      } else {
+        showAlert(data.message || 'Registration failed.', 'error');
+      }
+    } catch (error) {
+      showAlert('Unable to reach server. Please ensure the backend is running ("node server.js").', 'error');
+    } finally {
+      btn.disabled = false;
+      btn.innerHTML = origText;
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    checkAtlasStatus();
+    checkLoginState();
+  });
+</script>
+</body>
+</html>

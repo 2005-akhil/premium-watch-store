@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shopping Cart | Titan Watch Store</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+<!-- ANNOUNCEMENT BAR -->
+<div class="announcement-bar">
+  <div class="scroll-text">
+    <span>✦ Free shipping on orders above <strong>₹2,000</strong> &nbsp;·&nbsp; Use code <strong>TITAN10</strong> for 10% off &nbsp;·&nbsp;</span>
+    <span>✦ Free shipping on orders above <strong>₹2,000</strong> &nbsp;·&nbsp; Use code <strong>TITAN10</strong> for 10% off &nbsp;·&nbsp;</span>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header class="site-header">
+  <nav class="navbar container">
+    <a href="index.html" class="nav-logo">
+      <span class="logo-text">TITAN</span>
+      <span class="logo-tagline">Crafting Brilliance</span>
+    </a>
+    <ul class="nav-menu">
+      <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+      <li class="nav-item"><a href="collections.html" class="nav-link">Collections</a></li>
+      <li class="nav-item"><a href="collections.html?filter=new" class="nav-link">New Arrivals</a></li>
+      <li class="nav-item"><a href="collections.html?filter=sale" class="nav-link">Sale</a></li>
+    </ul>
+    <div class="nav-icons">
+      <button class="nav-icon-btn search-toggle"><i class="fas fa-search"></i></button>
+      <a href="wishlist.html" class="nav-icon-btn" style="position:relative">
+        <i class="far fa-heart"></i>
+        <span class="badge wish-badge" style="display:none">0</span>
+      </a>
+      <a href="cart.html" class="nav-icon-btn" style="position:relative">
+        <i class="fas fa-shopping-bag"></i>
+        <span class="badge cart-badge" style="display:none">0</span>
+      </a>
+      <button class="hamburger"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+</header>
+
+<div class="search-bar-overlay">
+  <form onsubmit="return false;" style="max-width:700px;margin:0 auto;display:flex;align-items:center;gap:16px">
+    <i class="fas fa-search" style="color:var(--gray);font-size:1.1rem"></i>
+    <input type="text" placeholder="Search for watches...">
+    <i class="fas fa-times search-close"></i>
+  </form>
+</div>
+
+<div class="mobile-overlay"></div>
+<nav class="mobile-nav">
+  <div class="mobile-nav-header">
+    <span class="logo">TITAN</span>
+    <i class="fas fa-times mobile-nav-close"></i>
+  </div>
+  <div class="mobile-nav-links">
+    <a href="index.html">Home <i class="fas fa-chevron-right"></i></a>
+    <a href="collections.html">Collections <i class="fas fa-chevron-right"></i></a>
+    <a href="wishlist.html">Wishlist <i class="fas fa-heart"></i></a>
+    <a href="cart.html">Cart <i class="fas fa-shopping-bag"></i></a>
+  </div>
+  <div class="mobile-nav-footer">
+    <p>Follow us</p>
+    <div class="mobile-social">
+      <a href="#"><i class="fab fa-instagram"></i></a>
+      <a href="#"><i class="fab fa-facebook-f"></i></a>
+    </div>
+  </div>
+</nav>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="index.html">Home</a>
+      <i class="fas fa-chevron-right"></i>
+      <span>Shopping Cart</span>
+    </div>
+    <h1>Your Cart</h1>
+    <p>Review your selected timepieces before checkout.</p>
+  </div>
+</div>
+
+<!-- CART LAYOUT -->
+<div class="container">
+  <div class="cart-layout" id="cartLayout">
+    <!-- Cart Items -->
+    <div class="cart-items">
+      <div class="cart-header">
+        <h2>Cart Items</h2>
+        <span class="cart-count" id="summCount"></span>
+      </div>
+      <div id="cartItems">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+
+    <!-- Order Summary -->
+    <div class="order-summary" id="orderSummary">
+      <h3><i class="fas fa-receipt" style="color:var(--gold);margin-right:8px"></i> Order Summary</h3>
+
+      <div class="summary-row">
+        <span>Subtotal</span>
+        <strong id="summSubtotal">₹0</strong>
+      </div>
+      <div class="summary-row">
+        <span>Total Savings</span>
+        <strong style="color:var(--green)" id="summSavings">- ₹0</strong>
+      </div>
+      <div class="summary-row">
+        <span>Delivery Charges</span>
+        <strong id="summDelivery">₹0</strong>
+      </div>
+      <div class="summary-divider"></div>
+      <div class="summary-total">
+        <span>Total Amount</span>
+        <strong id="summTotal">₹0</strong>
+      </div>
+
+      <div class="coupon-form">
+        <input class="coupon-input" id="couponInput" type="text" placeholder="Coupon Code">
+        <button class="coupon-btn" id="applyCoupon">Apply</button>
+      </div>
+
+      <button class="btn-gold" style="width:100%;justify-content:center;padding:16px;font-size:0.9rem" onclick="showToast('<i class=\'fas fa-check-circle\'></i> <span>Proceeding to checkout...</span>', 'success')">
+        <i class="fas fa-lock"></i> Proceed to Checkout
+      </button>
+      <button class="btn-outline" style="width:100%;justify-content:center;margin-top:12px" onclick="window.location.href='collections.html'">
+        <i class="fas fa-arrow-left"></i> Continue Shopping
+      </button>
+
+      <div class="order-assurances">
+        <div class="assurance-item"><i class="fas fa-truck"></i> Free delivery on orders above ₹2,000</div>
+        <div class="assurance-item"><i class="fas fa-shield-alt"></i> 100% genuine Titan products</div>
+        <div class="assurance-item"><i class="fas fa-undo"></i> 30-day easy returns</div>
+        <div class="assurance-item"><i class="fas fa-lock"></i> Secure 256-bit SSL checkout</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Recommended Section -->
+<section class="section-padding" style="background:var(--off-white)">
+  <div class="container">
+    <div class="section-header">
+      <span class="pre-title">You Might Also Like</span>
+      <h2>Recommended for You</h2>
+      <div class="gold-divider"></div>
+    </div>
+    <div class="products-grid" id="recommendedGrid"></div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <span class="logo">TITAN</span>
+        <span class="tagline">Crafting Brilliance</span>
+        <p>India's most trusted watch brand since 1984.</p>
+        <div class="social-links">
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-youtube"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Collections</h4>
+        <ul>
+          <li><a href="collections.html"><i class="fas fa-chevron-right"></i> All Watches</a></li>
+          <li><a href="collections.html?gender=Men"><i class="fas fa-chevron-right"></i> For Him</a></li>
+          <li><a href="collections.html?gender=Women"><i class="fas fa-chevron-right"></i> For Her</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Help</h4>
+        <ul>
+          <li><a href="#"><i class="fas fa-chevron-right"></i> Track Order</a></li>
+          <li><a href="#"><i class="fas fa-chevron-right"></i> Returns</a></li>
+          <li><a href="#"><i class="fas fa-chevron-right"></i> Contact Us</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="#"><i class="fas fa-phone"></i> 1800-258-5530</a></li>
+          <li><a href="#"><i class="fas fa-envelope"></i> support@titan.com</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2024 Titan Company Limited. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<button class="scroll-top" id="scrollTop"><i class="fas fa-chevron-up"></i></button>
+<div class="toast-container" id="toastContainer"></div>
+
+<script src="js/products.js"></script>
+<script src="js/main.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const recGrid = document.getElementById('recommendedGrid');
+    if (recGrid) {
+      const shuffled = [...PRODUCTS].sort(() => Math.random() - 0.5).slice(0, 4);
+      recGrid.innerHTML = shuffled.map(p => createProductCard(p)).join('');
+      setTimeout(initScrollAnimations, 100);
+    }
+  });
+</script>
+</body>
+</html>

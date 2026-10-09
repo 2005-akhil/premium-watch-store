@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Titan | Crafting Brilliance Since 1984</title>
+  <meta name="description" content="Explore Titan's iconic watch collections — Edge, Raga, Nebula, Smart and more. Shop premium timepieces crafted with precision and elegance.">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    /* Additional Product Detail Styles */
+    .product-detail-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      padding: 60px 0;
+      align-items: start;
+    }
+    .gallery-main {
+      border-radius: 8px;
+      overflow: hidden;
+      background: var(--lighter-gray);
+      aspect-ratio: 1;
+      position: relative;
+    }
+    .gallery-main img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+    .gallery-main:hover img { transform: scale(1.04); }
+    .gallery-thumbs {
+      display: flex;
+      gap: 12px;
+      margin-top: 14px;
+    }
+    .thumb {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 4px;
+      cursor: pointer;
+      border: 2px solid var(--light-gray);
+      transition: all 0.2s ease;
+    }
+    .thumb.active, .thumb:hover { border-color: var(--gold); }
+    .product-badges-detail { display: flex; gap: 8px; margin-bottom: 14px; }
+    .product-brand-detail {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 10px;
+    }
+    .product-title-detail {
+      font-family: var(--font-serif);
+      font-size: 2rem;
+      color: var(--primary);
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+    .product-price-detail {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 8px;
+    }
+    .price-big {
+      font-family: var(--font-serif);
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--dark);
+    }
+    .price-orig-detail { font-size: 1rem; color: var(--gray); text-decoration: line-through; }
+    .price-off-badge {
+      background: var(--green);
+      color: var(--white);
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 3px;
+    }
+    .savings-info {
+      font-size: 0.85rem;
+      color: var(--green);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .product-description {
+      color: var(--gray);
+      font-size: 0.95rem;
+      line-height: 1.8;
+      margin-bottom: 28px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--light-gray);
+    }
+    .product-options { margin-bottom: 28px; display: flex; flex-direction: column; gap: 20px; }
+    .option-group label { font-size: 0.82rem; font-weight: 700; color: var(--gray); display: block; margin-bottom: 10px; letter-spacing: 0.5px; }
+    .color-swatches { display: flex; gap: 10px; }
+    .color-swatch {
+      width: 30px; height: 30px;
+      border-radius: 50%;
+      cursor: pointer;
+      border: 3px solid transparent;
+      transition: all 0.2s ease;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+    .color-swatch.active, .color-swatch:hover { border-color: var(--gold); transform: scale(1.15); }
+    .detail-actions {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+    .detail-badges {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+    .detail-badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.8rem;
+      color: var(--gray);
+      background: var(--lighter-gray);
+      padding: 10px 14px;
+      border-radius: var(--radius);
+    }
+    .detail-badge i { color: var(--gold); width: 16px; }
+    .specs-table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+    .specs-table tr { border-bottom: 1px solid var(--lighter-gray); }
+    .specs-table td { padding: 10px 0; }
+    .specs-table td:first-child { color: var(--gray); width: 40%; font-weight: 600; }
+    .specs-table td:last-child { color: var(--dark); }
+    .product-specs, .product-features-list { margin-bottom: 24px; }
+    .product-specs h4, .product-features-list h4 {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--dark);
+      margin-bottom: 14px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--light-gray);
+    }
+    .product-features-list ul { display: flex; flex-direction: column; gap: 8px; }
+    .product-features-list li { display: flex; align-items: center; gap: 10px; font-size: 0.88rem; color: var(--gray); }
+    .product-features-list li i { color: var(--green); font-size: 0.8rem; }
+    .emi-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 18px;
+      background: rgba(201,168,76,0.08);
+      border: 1px solid rgba(201,168,76,0.2);
+      border-radius: var(--radius);
+      font-size: 0.85rem;
+      color: var(--gray);
+    }
+    .emi-info i { color: var(--gold); }
+    .emi-info strong { color: var(--dark); }
+    @media (max-width: 768px) {
+      .product-detail-grid { grid-template-columns: 1fr; gap: 32px; }
+      .detail-badges { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===== ANNOUNCEMENT BAR ===== -->
+<div class="announcement-bar">
+  <div class="scroll-text">
+    <span>✦ Free shipping on orders above <strong>₹2,000</strong> &nbsp;·&nbsp; Use code <strong>TITAN10</strong> for 10% off &nbsp;·&nbsp; <strong>New</strong> Titan Edge Collection is here &nbsp;·&nbsp; EMI available from ₹199/month &nbsp;·&nbsp;</span>
+    <span>✦ Free shipping on orders above <strong>₹2,000</strong> &nbsp;·&nbsp; Use code <strong>TITAN10</strong> for 10% off &nbsp;·&nbsp; <strong>New</strong> Titan Edge Collection is here &nbsp;·&nbsp; EMI available from ₹199/month &nbsp;·&nbsp;</span>
+  </div>
+</div>
+
+<!-- ===== HEADER ===== -->
+<header class="site-header">
+  <nav class="navbar container">
+    <!-- Logo -->
+    <a href="index.html" class="nav-logo">
+      <span class="logo-text">TITAN</span>
+      <span class="logo-tagline">Crafting Brilliance</span>
+    </a>
+
+    <!-- Desktop Menu -->
+    <ul class="nav-menu">
+      <li class="nav-item"><a href="index.html" class="nav-link active">Home</a></li>
+      <li class="nav-item">
+        <a href="collections.html" class="nav-link">Collections <i class="fas fa-chevron-down"></i></a>
+        <div class="mega-menu">
+          <div class="mega-col">
+            <h4>For Him</h4>
+            <a href="collections.html?gender=Men">Men's Watches</a>
+            <a href="collections.html?collection=Edge">Titan Edge</a>
+            <a href="collections.html?collection=Automatic">Automatic</a>
+            <a href="collections.html?collection=Octane">Titan Octane</a>
+            <a href="collections.html?collection=Chronograph">Chronograph</a>
+          </div>
+          <div class="mega-col">
+            <h4>For Her</h4>
+            <a href="collections.html?gender=Women">Women's Watches</a>
+            <a href="collections.html?collection=Raga">Titan Raga</a>
+            <a href="collections.html?collection=Nebula">Titan Nebula</a>
+            <a href="collections.html?collection=Charm">Sonata Charm</a>
+            <a href="collections.html?gender=Women">Bracelet Watches</a>
+          </div>
+          <div class="mega-col">
+            <h4>Collections</h4>
+            <a href="collections.html?collection=Smart">Smartwatches</a>
+            <a href="collections.html?brand=Fastrack">Fastrack</a>
+            <a href="collections.html?brand=Sonata">Sonata</a>
+            <a href="collections.html?brand=Xylys">Xylys</a>
+            <a href="collections.html">View All</a>
+          </div>
+        </div>
+      </li>
+      <li class="nav-item"><a href="collections.html?filter=new" class="nav-link">New Arrivals</a></li>
+      <li class="nav-item"><a href="collections.html?filter=sale" class="nav-link">Sale <span style="color:var(--red);font-size:0.6rem;font-weight:900;vertical-align:super;">HOT</span></a></li>
+      <li class="nav-item"><a href="#about" class="nav-link">Our Story</a></li>
+    </ul>
+
+    <!-- Nav Icons -->
+    <div class="nav-icons">
+      <button class="nav-icon-btn search-toggle" title="Search"><i class="fas fa-search"></i></button>
+      <a href="wishlist.html" class="nav-icon-btn" title="Wishlist" style="position:relative">
+        <i class="far fa-heart"></i>
+        <span class="badge wish-badge" style="display:none">0</span>
+      </a>
+      <a href="cart.html" class="nav-icon-btn" title="Cart" style="position:relative">
+        <i class="fas fa-shopping-bag"></i>
+        <span class="badge cart-badge" style="display:none">0</span>
+      </a>
+      <button class="nav-icon-btn" title="Account"><i class="far fa-user"></i></button>
+      <button class="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<!-- ===== SEARCH BAR ===== -->
+<div class="search-bar-overlay">
+  <form onsubmit="return false;" style="max-width:700px;margin:0 auto;display:flex;align-items:center;gap:16px">
+    <i class="fas fa-search" style="color:var(--gray);font-size:1.1rem"></i>
+    <input type="text" placeholder="Search for watches, collections, brands...">
+    <i class="fas fa-times search-close"></i>
+  </form>
+</div>
+
+<!-- ===== MOBILE NAV ===== -->
+<div class="mobile-overlay"></div>
+<nav class="mobile-nav">
+  <div class="mobile-nav-header">
+    <span class="logo">TITAN</span>
+    <i class="fas fa-times mobile-nav-close"></i>
+  </div>
+  <div class="mobile-nav-links">
+    <a href="index.html">Home <i class="fas fa-chevron-right"></i></a>
+    <a href="collections.html">All Collections <i class="fas fa-chevron-right"></i></a>
+    <a href="collections.html?gender=Men">Men's Watches <i class="fas fa-chevron-right"></i></a>
+    <a href="collections.html?gender=Women">Women's Watches <i class="fas fa-chevron-right"></i></a>
+    <a href="collections.html?collection=Smart">Smartwatches <i class="fas fa-chevron-right"></i></a>
+    <a href="collections.html?collection=Raga">Titan Raga <i class="fas fa-chevron-right"></i></a>
+    <a href="collections.html?collection=Edge">Titan Edge <i class="fas fa-chevron-right"></i></a>
+    <a href="collections.html?collection=Nebula">Titan Nebula <i class="fas fa-chevron-right"></i></a>
+    <a href="wishlist.html">Wishlist <i class="fas fa-heart"></i></a>
+    <a href="cart.html">Cart <i class="fas fa-shopping-bag"></i></a>
+  </div>
+  <div class="mobile-nav-footer">
+    <p>Follow us on social media</p>
+    <div class="mobile-social">
+      <a href="#"><i class="fab fa-instagram"></i></a>
+      <a href="#"><i class="fab fa-facebook-f"></i></a>
+      <a href="#"><i class="fab fa-youtube"></i></a>
+      <a href="#"><i class="fab fa-twitter"></i></a>
+    </div>
+  </div>
+</nav>
+
+<!-- ===================================
+     HERO CAROUSEL
+     =================================== -->
+<section class="hero-carousel">
+
+  <!-- Slide 1 -->
+  <div class="hero-slide hero-slide-1 active">
+    <img class="hero-bg-img" src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=1200&q=60" alt="">
+    <div class="hero-content container">
+      <div class="hero-badge">New Collection 2024</div>
+      <h1 class="hero-title">Titan <em>Edge</em><br>Ultra Slim</h1>
+      <p class="hero-subtitle">At just 3.5mm, the world's slimmest watch redefines elegance. Precision engineering meets minimalist luxury.</p>
+      <div class="hero-price">Starting at <strong>₹7,995</strong></div>
+      <div class="hero-btns">
+        <a href="collections.html?collection=Edge" class="btn-gold"><i class="fas fa-arrow-right"></i> Explore Edge</a>
+        <a href="collections.html" class="btn-outline-white">View All</a>
+      </div>
+    </div>
+    <img class="hero-watch-img" src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800&q=80" alt="Titan Edge">
+  </div>
+
+  <!-- Slide 2 -->
+  <div class="hero-slide hero-slide-2">
+    <img class="hero-bg-img" src="https://images.unsplash.com/photo-1617043786394-f977fa12eddf?w=1200&q=60" alt="">
+    <div class="hero-content container">
+      <div class="hero-badge">Smart Living</div>
+      <h1 class="hero-title">The Future<br>on Your <em>Wrist</em></h1>
+      <p class="hero-subtitle">Titan Smartwatches blend classic craftsmanship with cutting-edge technology. Health, fitness, and style — all in one.</p>
+      <div class="hero-price">Starting at <strong>₹3,995</strong></div>
+      <div class="hero-btns">
+        <a href="collections.html?collection=Smart" class="btn-gold"><i class="fas fa-microchip"></i> Shop Smartwatches</a>
+        <a href="collections.html" class="btn-outline-white">All Collections</a>
+      </div>
+    </div>
+    <img class="hero-watch-img" src="https://images.unsplash.com/photo-1617043786394-f977fa12eddf?w=800&q=80" alt="Titan Smart">
+  </div>
+
+  <!-- Slide 3 -->
+  <div class="hero-slide hero-slide-3">
+    <img class="hero-bg-img" src="https://images.unsplash.com/photo-1547996160-81dfa63595aa?w=1200&q=60" alt="">
+    <div class="hero-content container">
+      <div class="hero-badge">Titan Raga · For Her</div>
+      <h1 class="hero-title">Timeless<br><em>Femininity</em></h1>
+      <p class="hero-subtitle">Titan Raga — a celebration of grace, shimmer and the beauty of being a woman. Crafted for those who wear elegance effortlessly.</p>
+      <div class="hero-price">Starting at <strong>₹3,995</strong></div>
+      <div class="hero-btns">
+        <a href="collections.html?collection=Raga" class="btn-gold"><i class="fas fa-gem"></i> Explore Raga</a>
+        <a href="collections.html?gender=Women" class="btn-outline-white">For Her</a>
+      </div>
+    </div>
+    <img class="hero-watch-img" src="https://images.unsplash.com/photo-1547996160-81dfa63595aa?w=800&q=80" alt="Titan Raga">
+  </div>
+
+  <!-- Controls -->
+  <button class="hero-arrow prev"><i class="fas fa-chevron-left"></i></button>
+  <button class="hero-arrow next"><i class="fas fa-chevron-right"></i></button>
+  <div class="hero-dots">
+    <button class="hero-dot active"></button>
+    <button class="hero-dot"></button>
+    <button class="hero-dot"></button>
+  </div>
+  <div class="hero-scroll">
+    <div class="hero-scroll-line"></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<!-- ===================================
+     FEATURED COLLECTIONS
+     =================================== -->
+<section class="featured-collections section-padding">
+  <div class="container">
+    <div class="section-header fade-up">
+      <span class="pre-title">Shop by Collection</span>
+      <h2>Iconic Collections</h2>
+      <p>From ultra-slim masterpieces to luxurious gold creations — discover a world of exceptional timepieces.</p>
+      <div class="gold-divider"></div>
+    </div>
+    <div class="collections-grid">
+      <div class="collection-card fade-up">
+        <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&h=800&fit=crop&q=80" alt="Titan Edge">
+        <div class="collection-card-overlay">
+          <span class="tag">For Him</span>
+          <h3>Titan Edge</h3>
+          <a href="collections.html?collection=Edge" class="collection-link">Shop Now <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+      <div class="collection-card fade-up">
+        <img src="https://images.unsplash.com/photo-1547996160-81dfa63595aa?w=600&h=800&fit=crop&q=80" alt="Titan Raga">
+        <div class="collection-card-overlay">
+          <span class="tag">For Her</span>
+          <h3>Titan Raga</h3>
+          <a href="collections.html?collection=Raga" class="collection-link">Shop Now <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+      <div class="collection-card fade-up">
+        <img src="https://images.unsplash.com/photo-1617043786394-f977fa12eddf?w=600&h=800&fit=crop&q=80" alt="Titan Smart">
+        <div class="collection-card-overlay">
+          <span class="tag">Tech & Fitness</span>
+          <h3>Titan Smart</h3>
+          <a href="collections.html?collection=Smart" class="collection-link">Shop Now <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+      <div class="collection-card fade-up">
+        <img src="https://images.unsplash.com/photo-1524592094714-0f0654e20314?w=600&h=800&fit=crop&q=80" alt="Titan Nebula">
+        <div class="collection-card-overlay">
+          <span class="tag">Luxury</span>
+          <h3>Titan Nebula</h3>
+          <a href="collections.html?collection=Nebula" class="collection-link">Shop Now <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================================
+     NEW ARRIVALS WITH TABS
+     =================================== -->
+<section class="new-arrivals section-padding">
+  <div class="container">
+    <div class="section-header fade-up">
+      <span class="pre-title">Fresh Picks</span>
+      <h2>New & Trending</h2>
+      <p>Discover our latest timepieces and bestsellers — handpicked for every occasion.</p>
+      <div class="gold-divider"></div>
+    </div>
+    <div class="arrivals-tabs">
+      <button class="arrivals-tab active" data-filter="all">All</button>
+      <button class="arrivals-tab" data-filter="new">New Arrivals</button>
+      <button class="arrivals-tab" data-filter="bestseller">Bestsellers</button>
+      <button class="arrivals-tab" data-filter="men">For Him</button>
+      <button class="arrivals-tab" data-filter="women">For Her</button>
+    </div>
+    <div class="products-grid" id="arrivalsGrid"></div>
+    <div class="text-center" style="margin-top:48px">
+      <a href="collections.html" class="btn-outline">View All Watches <i class="fas fa-arrow-right"></i></a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================================
+     HERITAGE BANNER
+     =================================== -->
+<section class="heritage-banner" id="about">
+  <div class="container">
+    <div class="heritage-content fade-up">
+      <span class="pre-title">Our Legacy</span>
+      <h2>Crafting <em>Brilliance</em><br>Since 1984</h2>
+      <p>For over four decades, Titan has been India's most trusted watch brand. Born from the Tata Group, we have crafted timepieces that have graced the wrists of millions — from the first job interview to the wedding aisle.</p>
+      <div class="heritage-stats">
+        <div class="stat-item">
+          <span class="stat-number">40+</span>
+          <span class="stat-label">Years of Trust</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">10M+</span>
+          <span class="stat-label">Happy Customers</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">800+</span>
+          <span class="stat-label">Retail Stores</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">32+</span>
+          <span class="stat-label">Countries</span>
+        </div>
+      </div>
+      <a href="collections.html" class="btn-gold"><i class="fas fa-gem"></i> Explore Our World</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================================
+     SHOP BY PRICE
+     =================================== -->
+<section class="section-padding" style="background:var(--white)">
+  <div class="container">
+    <div class="section-header fade-up">
+      <span class="pre-title">Find Your Range</span>
+      <h2>Shop by Budget</h2>
+      <p>Find the perfect watch for every budget — from everyday elegance to luxury heirlooms.</p>
+      <div class="gold-divider"></div>
+    </div>
+    <div class="price-chips fade-up">
+      <button class="price-chip active" data-range="all">All Prices</button>
+      <button class="price-chip" data-range="under-2000">Under ₹2,000</button>
+      <button class="price-chip" data-range="2000-5000">₹2,000 – ₹5,000</button>
+      <button class="price-chip" data-range="5000-10000">₹5,000 – ₹10,000</button>
+      <button class="price-chip" data-range="above-10000">Above ₹10,000</button>
+    </div>
+    <div class="products-grid" id="priceFilterGrid"></div>
+  </div>
+</section>
+
+<!-- ===================================
+     BESTSELLERS
+     =================================== -->
+<section class="bestsellers section-padding">
+  <div class="container">
+    <div class="section-header fade-up">
+      <span class="pre-title">Customer Favourites</span>
+      <h2>Bestsellers</h2>
+      <p>Our most loved timepieces — chosen by millions of happy customers across India.</p>
+      <div class="gold-divider"></div>
+    </div>
+    <div class="products-grid" id="bestsellersGrid"></div>
+  </div>
+</section>
+
+<!-- ===================================
+     BRANDS SHOWCASE
+     =================================== -->
+<section class="brands-section">
+  <div class="container">
+    <div class="section-header fade-up">
+      <span class="pre-title">The Titan Family</span>
+      <h2>Our Brands</h2>
+      <div class="gold-divider"></div>
+    </div>
+    <div class="brands-grid fade-up">
+      <div class="brand-chip active" onclick="goToCollections('brand=Titan')">TITAN</div>
+      <div class="brand-chip" onclick="goToCollections('collection=Edge')">EDGE</div>
+      <div class="brand-chip" onclick="goToCollections('collection=Raga')">RAGA</div>
+      <div class="brand-chip" onclick="goToCollections('collection=Nebula')">NEBULA</div>
+      <div class="brand-chip" onclick="goToCollections('brand=Fastrack')">FASTRACK</div>
+      <div class="brand-chip" onclick="goToCollections('brand=Sonata')">SONATA</div>
+      <div class="brand-chip" onclick="goToCollections('brand=Xylys')">XYLYS</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================================
+     TESTIMONIALS
+     =================================== -->
+<section class="testimonials section-padding">
+  <div class="container">
+    <div class="section-header fade-up">
+      <span class="pre-title">What Our Customers Say</span>
+      <h2>Loved by Millions</h2>
+      <div class="gold-divider"></div>
+    </div>
+    <div class="testimonials-carousel">
+      <div class="testimonials-track">
+        <div class="testimonial-item">
+          <div class="testimonial-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+          <p class="testimonial-text">"I've been wearing the Titan Edge for three years now. It never fails to draw compliments. The ultra-slim profile is unlike anything else in its price range. Truly a masterpiece."</p>
+          <div class="testimonial-author"><strong>Arjun Mehta</strong><span>Mumbai · Verified Buyer</span></div>
+        </div>
+        <div class="testimonial-item">
+          <div class="testimonial-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+          <p class="testimonial-text">"Gifted the Titan Raga to my wife on our anniversary. She absolutely loves it — the rose gold bracelet is so delicate and beautiful. Fast delivery, beautiful packaging. Will order again!"</p>
+          <div class="testimonial-author"><strong>Priya Sharma</strong><span>Bangalore · Verified Buyer</span></div>
+        </div>
+        <div class="testimonial-item">
+          <div class="testimonial-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></div>
+          <p class="testimonial-text">"The Titan Smart Hybrid is the perfect watch — looks elegant for office but tracks my fitness too. Battery lasts a full week. Best of both worlds! Highly recommend."</p>
+          <div class="testimonial-author"><strong>Rohan Kapoor</strong><span>Delhi · Verified Buyer</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-dots">
+      <button class="testimonial-dot active"></button>
+      <button class="testimonial-dot"></button>
+      <button class="testimonial-dot"></button>
+    </div>
+  </div>
+</section>
+
+<!-- ===================================
+     NEWSLETTER
+     =================================== -->
+<section class="newsletter section-padding">
+  <div class="container">
+    <div class="newsletter-inner fade-up">
+      <div class="newsletter-content">
+        <span class="pre-title">Stay in the Loop</span>
+        <h2>Get Exclusive Offers</h2>
+        <p>Subscribe to our newsletter and be the first to know about new collections, limited editions, and special promotions — straight to your inbox.</p>
+        <div class="newsletter-perks" style="margin-top:20px">
+          <span><i class="fas fa-tag"></i> 10% off first order</span>
+          <span><i class="fas fa-bell"></i> New arrival alerts</span>
+          <span><i class="fas fa-gift"></i> Exclusive deals</span>
+        </div>
+      </div>
+      <div>
+        <form class="newsletter-form">
+          <div class="form-group"><input type="text" placeholder="Your name"></div>
+          <div class="form-group"><input type="email" placeholder="Your email address" required></div>
+          <button type="submit" class="btn-gold" style="width:100%"><i class="fas fa-paper-plane"></i> Subscribe Now</button>
+        </form>
+        <p style="font-size:0.75rem;color:var(--gray);margin-top:12px;text-align:center">
+          <i class="fas fa-lock" style="margin-right:4px;color:var(--gold)"></i>
+          We respect your privacy. Unsubscribe at any time.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================================
+     FOOTER
+     =================================== -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <span class="logo">TITAN</span>
+        <span class="tagline">Crafting Brilliance</span>
+        <p>Part of the Tata Group, Titan has been India's most trusted watch brand since 1984. We craft timepieces that celebrate life's most precious moments.</p>
+        <div class="social-links">
+          <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" title="YouTube"><i class="fab fa-youtube"></i></a>
+          <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+          <a href="#" title="Pinterest"><i class="fab fa-pinterest-p"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Collections</h4>
+        <ul>
+          <li><a href="collections.html?collection=Edge"><i class="fas fa-chevron-right"></i> Titan Edge</a></li>
+          <li><a href="collections.html?collection=Raga"><i class="fas fa-chevron-right"></i> Titan Raga</a></li>
+          <li><a href="collections.html?collection=Nebula"><i class="fas fa-chevron-right"></i> Titan Nebula</a></li>
+          <li><a href="collections.html?collection=Smart"><i class="fas fa-chevron-right"></i> Titan Smart</a></li>
+          <li><a href="collections.html?brand=Fastrack"><i class="fas fa-chevron-right"></i> Fastrack</a></li>
+          <li><a href="collections.html?brand=Sonata"><i class="fas fa-chevron-right"></i> Sonata</a></li>
+          <li><a href="collections.html?brand=Xylys"><i class="fas fa-chevron-right"></i> Xylys</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Customer Care</h4>
+        <ul>
+          <li><a href="#"><i class="fas fa-chevron-right"></i> Track Order</a></li>
+          <li><a href="#"><i class="fas fa-chevron-right"></i> Returns & Exchanges</a></li>
+          <li><a href="#"><i class="fas fa-chevron-right"></i> Warranty Policy</a></li>
+          <li><a href="#"><i class="fas fa-chevron-right"></i> FAQ</a></li>
+          <li><a href="#"><i class="fas fa-chevron-right"></i> Contact Us</a></li>
+          <li><a href="#"><i class="fas fa-chevron-right"></i> Store Locator</a></li>
+          <li><a href="#"><i class="fas fa-chevron-right"></i> Watch Repair</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact Us</h4>
+        <ul>
+          <li><a href="tel:18002585530"><i class="fas fa-phone"></i> 1800-258-5530 (Toll-free)</a></li>
+          <li><a href="mailto:support@titanwatch.in"><i class="fas fa-envelope"></i> support@titanwatch.in</a></li>
+          <li><a href="#"><i class="fas fa-map-marker-alt"></i> 3, SIPCOT Industrial Complex, Hosur, Tamil Nadu</a></li>
+          <li><a href="#"><i class="fas fa-clock"></i> Mon–Sat: 9AM – 6PM IST</a></li>
+        </ul>
+        <div style="margin-top:20px">
+          <p style="font-size:0.7rem;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:12px">We Accept</p>
+          <div class="footer-payment">
+            <span class="payment-badge">VISA</span>
+            <span class="payment-badge">MC</span>
+            <span class="payment-badge">UPI</span>
+            <span class="payment-badge">EMI</span>
+            <span class="payment-badge">COD</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2024 Titan Company Limited. All rights reserved. | <a href="#" style="color:var(--gold)">Privacy Policy</a> | <a href="#" style="color:var(--gold)">Terms of Service</a></p>
+      <p style="font-size:0.75rem;color:rgba(255,255,255,0.25)">Designed with ♥ in India</p>
+    </div>
+  </div>
+</footer>
+
+<!-- ===== SCROLL TO TOP ===== -->
+<button class="scroll-top" id="scrollTop" title="Back to top"><i class="fas fa-chevron-up"></i></button>
+
+<!-- ===== TOAST CONTAINER ===== -->
+<div class="toast-container" id="toastContainer"></div>
+
+<script src="js/products.js"></script>
+<script src="js/main.js"></script>
+<script>
+  // Initialize price filter grid on homepage
+  document.addEventListener('DOMContentLoaded', () => {
+    const priceGrid = document.getElementById('priceFilterGrid');
+    if (priceGrid) {
+      priceGrid.innerHTML = PRODUCTS.slice(0, 8).map(p => createProductCard(p)).join('');
+      setTimeout(initScrollAnimations, 100);
+    }
+  });
+</script>
+<script src="js/chatbot.js"></script> 
+</body>
+</html>

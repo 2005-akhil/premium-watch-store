@@ -1,0 +1,1028 @@
+/* ========================================================
+   TITAN WATCH STORE - AI ASSISTANT CHATBOT STYLES
+   Visually matches the existing Titan luxury aesthetic.
+   Independent styles - does NOT alter existing website CSS.
+   ======================================================== */
+
+:root {
+  --chat-primary: #1A1A4E;
+  --chat-primary-light: #252570;
+  --chat-gold: #C9A84C;
+  --chat-gold-light: #E8C97A;
+  --chat-gold-dark: #A88835;
+  --chat-white: #FFFFFF;
+  --chat-off-white: #F8F6F1;
+  --chat-dark: #1C1C1C;
+  --chat-gray: #6B6B6B;
+  --chat-light-gray: #E8E8E8;
+  --chat-shadow: 0 16px 48px rgba(26, 26, 78, 0.28);
+}
+
+/* Floating AI Chatbot Button */
+.titan-chat-launcher {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  width: 62px;
+  height: 62px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--chat-primary) 0%, var(--chat-primary-light) 40%, var(--chat-gold) 100%);
+  color: var(--chat-white);
+  border: 2px solid var(--chat-gold);
+  box-shadow: 0 8px 25px rgba(26, 26, 78, 0.4), 0 0 15px rgba(201, 168, 76, 0.35);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.45rem;
+  z-index: 99998;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  outline: none;
+}
+
+.titan-chat-launcher:hover {
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: 0 12px 32px rgba(26, 26, 78, 0.5), 0 0 22px rgba(201, 168, 76, 0.55);
+}
+
+.titan-chat-launcher .launcher-icon-chat,
+.titan-chat-launcher .launcher-icon-close {
+  position: absolute;
+  transition: all 0.3s ease;
+}
+
+.titan-chat-launcher .launcher-icon-close {
+  opacity: 0;
+  transform: rotate(-90deg) scale(0.6);
+}
+
+.titan-chat-launcher.active .launcher-icon-chat {
+  opacity: 0;
+  transform: rotate(90deg) scale(0.6);
+}
+
+.titan-chat-launcher.active .launcher-icon-close {
+  opacity: 1;
+  transform: rotate(0deg) scale(1);
+}
+
+/* Pulsing Badge on Launcher */
+.titan-chat-pulse {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  width: 14px;
+  height: 14px;
+  background: var(--chat-gold);
+  border: 2px solid var(--chat-white);
+  border-radius: 50%;
+  animation: titanPulse 2s infinite;
+}
+
+@keyframes titanPulse {
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(201, 168, 76, 0.7); }
+  70% { transform: scale(1.1); box-shadow: 0 0 0 8px rgba(201, 168, 76, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(201, 168, 76, 0); }
+}
+
+/* Chatbot Window */
+.titan-chat-window {
+  position: fixed;
+  bottom: 102px;
+  right: 28px;
+  width: 400px;
+  max-width: calc(100vw - 36px);
+  height: 590px;
+  max-height: calc(100vh - 125px);
+  background: var(--chat-white);
+  border-radius: 16px;
+  box-shadow: var(--chat-shadow);
+  border: 1.5px solid rgba(201, 168, 76, 0.35);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  z-index: 99999;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px) scale(0.96);
+  transform-origin: bottom right;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  font-family: 'Lato', -apple-system, sans-serif;
+}
+
+.titan-chat-window.open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+}
+
+/* Chat Header */
+.titan-chat-header {
+  background: linear-gradient(135deg, var(--chat-primary) 0%, var(--chat-primary-light) 100%);
+  color: var(--chat-white);
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 2px solid var(--chat-gold);
+  position: relative;
+  flex-shrink: 0;
+}
+
+.titan-chat-header-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.titan-chat-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--chat-gold), var(--chat-gold-dark));
+  color: var(--chat-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.15rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+  flex-shrink: 0;
+}
+
+.titan-chat-header-info h3 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: var(--chat-white);
+  margin: 0;
+  line-height: 1.2;
+}
+
+.titan-chat-status {
+  font-size: 0.72rem;
+  color: var(--chat-gold-light);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 2px;
+}
+
+.titan-chat-status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #38A169;
+  box-shadow: 0 0 6px #38A169;
+}
+
+.titan-chat-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.titan-chat-head-btn {
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.85);
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  transition: all 0.2s ease;
+}
+
+.titan-chat-head-btn:hover {
+  background: var(--chat-gold);
+  color: var(--chat-white);
+  transform: scale(1.08);
+}
+
+/* Chat Messages Area */
+.titan-chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px 16px;
+  background: #FAF9F6;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  scroll-behavior: smooth;
+}
+
+.titan-chat-messages::-webkit-scrollbar {
+  width: 5px;
+}
+
+.titan-chat-messages::-webkit-scrollbar-thumb {
+  background: #D8D4CA;
+  border-radius: 10px;
+}
+
+/* Message Bubble */
+.titan-chat-msg {
+  display: flex;
+  flex-direction: column;
+  max-width: 86%;
+  animation: titanMsgFade 0.28s ease;
+  line-height: 1.48;
+  font-size: 0.88rem;
+}
+
+@keyframes titanMsgFade {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.titan-chat-msg.user {
+  align-self: flex-end;
+  align-items: flex-end;
+}
+
+.titan-chat-msg.bot {
+  align-self: flex-start;
+  align-items: flex-start;
+}
+
+.titan-chat-msg-bubble {
+  padding: 12px 16px;
+  border-radius: 14px;
+  position: relative;
+  word-wrap: break-word;
+  word-break: break-word;
+}
+
+.titan-chat-msg.user .titan-chat-msg-bubble {
+  background: linear-gradient(135deg, var(--chat-primary) 0%, var(--chat-primary-light) 100%);
+  color: var(--chat-white);
+  border-bottom-right-radius: 2px;
+  box-shadow: 0 2px 8px rgba(26, 26, 78, 0.2);
+}
+
+.titan-chat-msg.bot .titan-chat-msg-bubble {
+  background: var(--chat-white);
+  color: var(--chat-dark);
+  border-left: 3px solid var(--chat-gold);
+  border-bottom-left-radius: 2px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+}
+
+.titan-chat-msg-time {
+  font-size: 0.65rem;
+  color: var(--chat-gray);
+  margin-top: 4px;
+  padding: 0 4px;
+}
+
+/* Bot Message Content Formatting */
+.titan-chat-msg.bot .titan-chat-msg-bubble p {
+  margin-bottom: 8px;
+}
+.titan-chat-msg.bot .titan-chat-msg-bubble p:last-child {
+  margin-bottom: 0;
+}
+.titan-chat-msg.bot .titan-chat-msg-bubble ul,
+.titan-chat-msg.bot .titan-chat-msg-bubble ol {
+  margin: 6px 0 8px 18px;
+  padding: 0;
+}
+.titan-chat-msg.bot .titan-chat-msg-bubble li {
+  margin-bottom: 4px;
+}
+.titan-chat-msg.bot .titan-chat-msg-bubble strong {
+  color: var(--chat-primary);
+}
+
+/* Watch Product Recommendation Card within Chat */
+.titan-chat-card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 6px;
+  padding: 6px 12px;
+  background: rgba(201, 168, 76, 0.12);
+  color: var(--chat-gold-dark);
+  border: 1px solid var(--chat-gold);
+  border-radius: 6px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.titan-chat-card-link:hover {
+  background: var(--chat-gold);
+  color: var(--chat-white);
+  transform: translateY(-1px);
+}
+
+/* Quick Question Suggestions */
+.titan-chat-suggestions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.titan-chat-suggestions-title {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--chat-gold-dark);
+}
+
+.titan-chat-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.titan-chat-chip {
+  background: var(--chat-white);
+  border: 1px solid rgba(201, 168, 76, 0.5);
+  color: var(--chat-primary);
+  padding: 5px 11px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.titan-chat-chip:hover {
+  background: var(--chat-gold);
+  border-color: var(--chat-gold);
+  color: var(--chat-white);
+  transform: translateY(-1px);
+}
+
+/* Typing / Loading Indicator */
+.titan-chat-typing {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 12px 18px;
+  background: var(--chat-white);
+  border-left: 3px solid var(--chat-gold);
+  border-radius: 14px;
+  border-bottom-left-radius: 2px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.titan-chat-typing-dot {
+  width: 7px;
+  height: 7px;
+  background: var(--chat-gold);
+  border-radius: 50%;
+  animation: titanTyping 1.4s infinite ease-in-out both;
+}
+
+.titan-chat-typing-dot:nth-child(1) { animation-delay: -0.32s; }
+.titan-chat-typing-dot:nth-child(2) { animation-delay: -0.16s; }
+
+@keyframes titanTyping {
+  0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
+  40% { transform: scale(1); opacity: 1; }
+}
+
+/* Chat Input Bar */
+.titan-chat-input-area {
+  padding: 12px 16px;
+  background: var(--chat-white);
+  border-top: 1px solid var(--chat-light-gray);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.titan-chat-input {
+  flex: 1;
+  border: 1.5px solid var(--chat-light-gray);
+  border-radius: 24px;
+  padding: 11px 16px;
+  font-size: 0.88rem;
+  font-family: 'Lato', -apple-system, sans-serif;
+  color: var(--chat-dark);
+  outline: none;
+  background: #FAF9F6;
+  transition: all 0.2s ease;
+}
+
+.titan-chat-input:focus {
+  border-color: var(--chat-gold);
+  background: var(--chat-white);
+  box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.15);
+}
+
+.titan-chat-send-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--chat-gold) 0%, var(--chat-gold-dark) 100%);
+  color: var(--chat-white);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+  outline: none;
+}
+
+.titan-chat-send-btn:hover:not(:disabled) {
+  transform: scale(1.08);
+  box-shadow: 0 4px 12px rgba(201, 168, 76, 0.4);
+}
+
+.titan-chat-send-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.titan-chat-footer-note {
+  font-size: 0.62rem;
+  text-align: center;
+  color: var(--chat-gray);
+  padding: 4px 10px 8px;
+  background: var(--chat-white);
+  letter-spacing: 0.4px;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 480px) {
+  .titan-chat-launcher {
+    bottom: 20px;
+    right: 20px;
+    width: 56px;
+    height: 56px;
+    font-size: 1.3rem;
+  }
+
+  .titan-chat-window {
+    bottom: 0;
+    right: 0;
+    width: 100vw;
+    height: 100vh;
+    max-width: 100vw;
+    max-height: 100vh;
+    border-radius: 0;
+    border: none;
+  }
+
+  .titan-chat-header {
+    padding: 14px 16px;
+    border-radius: 0;
+  }
+}
+
+/* =====================================================
+   TITAN WATCH CHATBOT - LAUNCHER ICON
+   ===================================================== */
+
+.titan-chat-launcher {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.titan-chat-launcher-icon {
+  font-size: 26px;
+  line-height: 1;
+}
+
+
+/* =====================================================
+   PRODUCT CARDS
+   ===================================================== */
+
+.titan-chat-products {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 8px 0 14px 0;
+  width: 100%;
+}
+
+.titan-chat-product-card {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+  box-sizing: border-box;
+
+  padding: 10px;
+
+  background: #ffffff;
+
+  border: 1px solid #e5e5e5;
+  border-radius: 12px;
+
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.titan-chat-product-card:hover {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 5px 16px rgba(0, 0, 0, 0.12);
+}
+
+
+/* =====================================================
+   PRODUCT IMAGE
+   ===================================================== */
+
+.titan-chat-product-image {
+  width: 82px;
+  height: 82px;
+
+  flex: 0 0 82px;
+
+  object-fit: cover;
+
+  border-radius: 9px;
+
+  background: #f5f5f5;
+}
+
+
+/* =====================================================
+   PRODUCT INFORMATION
+   ===================================================== */
+
+.titan-chat-product-info {
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  gap: 4px;
+}
+
+.titan-chat-product-name {
+  font-size: 13px;
+  line-height: 1.3;
+
+  font-weight: 700;
+
+  color: #222;
+}
+
+.titan-chat-product-rating {
+  font-size: 11px;
+
+  color: #777;
+}
+
+.titan-chat-product-price {
+  font-size: 15px;
+
+  font-weight: 700;
+
+  color: #111;
+}
+
+.titan-chat-product-mrp {
+  font-size: 11px;
+
+  color: #999;
+
+  text-decoration: line-through;
+}
+
+
+/* =====================================================
+   TYPING ANIMATION
+   ===================================================== */
+
+.titan-chat-typing {
+  display: flex;
+
+  align-items: center;
+
+  gap: 4px;
+}
+
+.titan-chat-typing span {
+  width: 6px;
+  height: 6px;
+
+  border-radius: 50%;
+
+  background: #888;
+
+  animation: titanChatTyping 1.2s infinite ease-in-out;
+}
+
+.titan-chat-typing span:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.titan-chat-typing span:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+@keyframes titanChatTyping {
+  0%,
+  60%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.5;
+  }
+
+  30% {
+    transform: translateY(-4px);
+    opacity: 1;
+  }
+}
+
+
+/* =====================================================
+   MOBILE
+   ===================================================== */
+
+@media (max-width: 480px) {
+
+  .titan-chat-product-image {
+    width: 70px;
+    height: 70px;
+
+    flex-basis: 70px;
+  }
+
+  .titan-chat-product-name {
+    font-size: 12px;
+  }
+
+  .titan-chat-product-price {
+    font-size: 14px;
+  }
+
+}
+
+/* =====================================================
+   FIX: CLASSES USED BY CURRENT chatbot.js
+   ===================================================== */
+
+.titan-chat-message {
+  display: flex;
+  flex-direction: column;
+  max-width: 86%;
+  animation: titanMsgFade 0.28s ease;
+  line-height: 1.48;
+  font-size: 0.88rem;
+}
+
+.titan-chat-message.user {
+  align-self: flex-end;
+  align-items: flex-end;
+}
+
+.titan-chat-message.bot {
+  align-self: flex-start;
+  align-items: flex-start;
+}
+
+.titan-chat-message-bubble {
+  padding: 12px 16px;
+  border-radius: 14px;
+  position: relative;
+  word-wrap: break-word;
+  word-break: break-word;
+}
+
+.titan-chat-message.user .titan-chat-message-bubble {
+  background: linear-gradient(
+    135deg,
+    var(--chat-primary) 0%,
+    var(--chat-primary-light) 100%
+  );
+  color: var(--chat-white);
+  border-bottom-right-radius: 2px;
+  box-shadow: 0 2px 8px rgba(26, 26, 78, 0.2);
+}
+
+.titan-chat-message.bot .titan-chat-message-bubble {
+  background: var(--chat-white);
+  color: var(--chat-dark);
+  border-left: 3px solid var(--chat-gold);
+  border-bottom-left-radius: 2px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+}
+
+/* Send button used by chatbot.js */
+.titan-chat-send {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(
+    135deg,
+    var(--chat-gold) 0%,
+    var(--chat-gold-dark) 100%
+  );
+  color: var(--chat-white);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+  outline: none;
+}
+
+.titan-chat-send:hover:not(:disabled) {
+  transform: scale(1.08);
+  box-shadow: 0 4px 12px rgba(201, 168, 76, 0.4);
+}
+
+.titan-chat-send:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Product cards */
+.titan-chat-products {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  margin: 8px 0 14px;
+}
+
+.titan-chat-product-card {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px;
+  background: #fff;
+  border: 1px solid #e5e5e5;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.titan-chat-product-image {
+  width: 82px;
+  height: 82px;
+  min-width: 82px;
+  object-fit: cover;
+  border-radius: 9px;
+  background: #f5f5f5;
+  display: block;
+}
+
+.titan-chat-product-info {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+}
+
+.titan-chat-product-name {
+  font-size: 13px;
+  line-height: 1.3;
+  font-weight: 700;
+  color: #222;
+}
+
+.titan-chat-product-rating {
+  font-size: 11px;
+  color: #777;
+}
+
+.titan-chat-product-price {
+  font-size: 15px;
+  font-weight: 700;
+  color: #111;
+}
+
+.titan-chat-product-mrp {
+  font-size: 11px;
+  color: #999;
+  text-decoration: line-through;
+}
+
+/* Typing indicator */
+.titan-chat-typing-message {
+  align-self: flex-start;
+}
+
+.titan-chat-typing {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.titan-chat-typing span {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #888;
+  animation: titanChatTyping 1.2s infinite ease-in-out;
+}
+
+.titan-chat-typing span:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.titan-chat-typing span:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+@keyframes titanChatTyping {
+  0%, 60%, 100% {
+    transform: translateY(0);
+    opacity: 0.5;
+  }
+
+  30% {
+    transform: translateY(-4px);
+    opacity: 1;
+  }
+}
+
+/* =========================================
+   AI PRODUCT RECOMMENDATION CARDS
+   ========================================= */
+
+.titan-chat-products {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  margin-top: 12px;
+}
+
+.titan-chat-product-card {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+  padding: 12px;
+  box-sizing: border-box;
+
+  background: #ffffff;
+  border: 1px solid #e5e5e5;
+  border-radius: 12px;
+
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.titan-chat-product-image-wrap {
+  width: 90px;
+  height: 90px;
+  min-width: 90px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #f7f7f7;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.titan-chat-product-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.titan-chat-product-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.titan-chat-product-name {
+  font-size: 14px;
+  line-height: 1.3;
+  font-weight: 700;
+  color: #222;
+}
+
+.titan-chat-product-rating {
+  margin-top: 5px;
+  font-size: 12px;
+  color: #c49a3a;
+}
+
+.titan-chat-product-rating span {
+  color: #777;
+}
+
+.titan-chat-product-pricing {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 6px;
+}
+
+.titan-chat-product-price {
+  font-size: 15px;
+  font-weight: 700;
+  color: #b18a2c;
+}
+
+.titan-chat-product-mrp {
+  font-size: 11px;
+  color: #999;
+  text-decoration: line-through;
+}
+
+.titan-chat-product-discount {
+  font-size: 10px;
+  font-weight: 700;
+  color: #228b55;
+  background: #eaf7ef;
+  padding: 3px 6px;
+  border-radius: 4px;
+}
+
+.titan-chat-product-description {
+  margin-top: 6px;
+  font-size: 11px;
+  line-height: 1.4;
+  color: #666;
+  overflow: hidden;
+}
+
+.titan-chat-product-details {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 7px;
+}
+
+.titan-chat-product-details span {
+  font-size: 10px;
+  color: #555;
+  background: #f4f4f4;
+  padding: 3px 6px;
+  border-radius: 4px;
+}
+
+.titan-chat-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+}
+
+.titan-chat-clear {
+  border: none;
+  background: transparent;
+  color: #ffffff;
+  font-size: 12px;
+  cursor: pointer;
+  padding: 6px 8px;
+}
+
+.titan-chat-clear:hover {
+  opacity: 0.75;
+}
+
+.titan-chat-close {
+  border: none;
+  background: transparent;
+  color: #ffffff;
+  cursor: pointer;
+  font-size: 20px;
+  padding: 4px 6px;
+}
+
+.titan-chat-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+}
+
+.titan-chat-clear {
+  border: none;
+  background: transparent;
+  color: #ffffff;
+  font-size: 12px;
+  cursor: pointer;
+  padding: 6px 8px;
+}
+
+.titan-chat-clear:hover {
+  opacity: 0.75;
+}

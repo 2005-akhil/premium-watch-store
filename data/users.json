@@ -1,0 +1,52 @@
+[
+  {
+    "id": "user_1790761208087",
+    "name": "Aditi Sharma",
+    "email": "aditi@example.com",
+    "password": "cf01403f4673f0f7930694ec3facda2f7b87fd42c1af7c49f1dc2350296c84eb022256acb2cd6abf9a043e901024c8585138f3252b93b715fbd876dc1f7de42e",
+    "salt": "bb5956fc6bbb2cdcd7bb8cdebe5a65de",
+    "phone": "9876543210",
+    "createdAt": "2026-09-30T09:40:08.087Z",
+    "storage": "Local Database (Awaiting MongoDB URI)"
+  },
+  {
+    "id": "user_1790765463790",
+    "name": "Akhil Kumar",
+    "email": "akhilkumar20050@gmail.com",
+    "password": "d7fee7d36bdd44866d8290d733a5f1444949b049e96a0028b50a2942a1215e4d7c04f7c8ca089f93182f2b3ff04b6e520ae5d1acc55749d6f5c5e22d8762a5fc",
+    "salt": "7c161a98a3f9b2a6879eacf0171debe3",
+    "phone": "",
+    "createdAt": "2026-09-30T10:51:03.790Z",
+    "storage": "Local Database (Awaiting MongoDB URI)"
+  },
+  {
+    "id": "user_1790786061727",
+    "name": "fareed baba",
+    "email": "farred5454@gmail.com",
+    "password": "a24396f4d7d14658bc288620698ab4f20c2fb4f233b743345e96d0dc12c3356c510b7074d592d29443c482f2960131135399b6e5d0b8c01e91d39ec7294aeaf5",
+    "salt": "988c9d2573e794aa608c0a2eae6f269a",
+    "phone": "7721612166",
+    "createdAt": "2026-09-30T16:34:21.727Z",
+    "storage": "Local Database (Awaiting MongoDB URI)"
+  },
+  {
+    "id": "user_1790787948058",
+    "name": "pavan sai",
+    "email": "pavan5454@gmail.com",
+    "password": "0a9d79bb73fb2ef71e8631076ef85a91caa4c9aa3e2fed1979cffb979d772c223e132ed5dc99caa2de952399d112d224154b72a482ab5509ded1b0a44270c502",
+    "salt": "eae4d7cc4c76e37e97bf0313cf088777",
+    "phone": "9355261965",
+    "createdAt": "2026-09-30T17:05:48.058Z",
+    "storage": "Local Database (Awaiting MongoDB URI)"
+  },
+  {
+    "id": "user_1790791217700",
+    "name": "kalli siva ram",
+    "email": "sivaram333@gmail.com",
+    "password": "98e3b27b92efa2a1c6e3c10de9629f6f3a5aa38a73e6df4b02c2bf2760f679bc9c12dbb3262d40138fd7f9d69b4682e1ca293f54b308def4bc6bcda110a070a9",
+    "salt": "f5aa434887c8e25e905d7c1b19496f23",
+    "phone": "7794215653",
+    "createdAt": "2026-09-30T18:00:17.700Z",
+    "storage": "Local Database (Awaiting MongoDB URI)"
+  }
+]
